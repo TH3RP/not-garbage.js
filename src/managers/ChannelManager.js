@@ -20,6 +20,10 @@ class ChannelManager extends BaseManager {
    */
 
   add(data, guild, cache = true) {
+    if (!data) {
+      this.client.emit(Events.DEBUG, `No data provided for guild ${guild}`);
+      return null;
+    }
     const existing = this.cache.get(data.id);
     if (existing) {
       if (existing._patch && cache) existing._patch(data);
